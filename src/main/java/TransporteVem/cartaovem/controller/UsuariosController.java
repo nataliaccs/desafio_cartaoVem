@@ -1,6 +1,7 @@
 package TransporteVem.cartaovem.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import TransporteVem.cartaovem.model.UsuarioLogin;
 import TransporteVem.cartaovem.model.UsuariosModel;
 import TransporteVem.cartaovem.repository.UsuariosRepository;
 import TransporteVem.cartaovem.service.UsuariosService;
@@ -60,6 +63,22 @@ public class UsuariosController {
 			.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 
 	}
+	
+	
+	@PostMapping("/logar")
+	public ResponseEntity<UsuarioLogin> login(@RequestBody Optional<UsuarioLogin> usuarioLogin) {
+		return usuariosService.autenticarUsuario(usuarioLogin)
+			.map(resposta -> ResponseEntity.ok(resposta))
+			.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+	}
+	
+	@PutMapping("/atualizar")
+	public ResponseEntity<UsuariosModel> putUsuario(@Valid @RequestBody UsuariosModel usuario) {
+		return usuariosService.atualizarUsuario(usuario)
+			.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
+			.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
+	
 	
 
 }
