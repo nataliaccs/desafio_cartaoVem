@@ -36,13 +36,13 @@ public class CartaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CartaoModel> postPostagem (@Valid @RequestBody CartaoModel cartaoModel){
+	public ResponseEntity<CartaoModel> postCartao (@Valid @RequestBody CartaoModel cartaoModel){
 		return ResponseEntity.status(HttpStatus.CREATED).body(cartaoRepository.save(cartaoModel));
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
-	public void deletePostagem(@PathVariable Long id) {
+	public void deleteCartao(@PathVariable Long id) {
 		Optional<CartaoModel> cartaOptional = cartaoRepository.findById(id);
 		
 		if(cartaOptional.isEmpty())

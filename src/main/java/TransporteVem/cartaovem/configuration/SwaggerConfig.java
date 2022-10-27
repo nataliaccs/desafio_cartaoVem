@@ -21,7 +21,7 @@ public class SwaggerConfig {
 				.info(new Info()
 					.title("Desafio Cartão Vem")
 					.description("O objetivo desse teste é apresentar as habilidades de codificação.")
-					.version("v0.0.1")
+					.version("v1.6.9")
 				.license(new License()
 						.name(" ")
 						.url(" "))
